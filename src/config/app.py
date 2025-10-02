@@ -1,16 +1,31 @@
+from typing import List
+
 from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    DATABASE_URL: str
+    database_url: str
+    sync_database_url: str
 
-    JWT_SECRET_KEY: str
-    JWT_ALGORITHM: str = "HS256"
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
-    REFRESH_TOKEN_EXPIRE_DAYS: int = 7
+    secret_key: str
+    algorithm: str = "HS256"
+    access_token_expire_minutes: int = 30
+    refresh_token_expire_days: int = 7
 
-    CELERY_BROKER_URL: str
-    CELERY_RESULT_BACKEND: str
+    celery_broker_url: str
+    celery_result_backend: str
+
+    rabbitmq_url: str
+
+    redis_url: str
+
+    smtp_server: str
+    smtp_port: int
+    smtp_username: str
+    smtp_password: str
+
+    debug: bool = False
+    allowed_hosts: List[str] = ["localhost", "127.0.0.1"]
 
     class Config:
         env_file = ".env"
