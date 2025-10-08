@@ -33,10 +33,20 @@ skips = ["B101", "B104"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "--cov=app --cov-report=term-missing --cov-report=html -v"
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v"
 filterwarnings = [
     "ignore::DeprecationWarning",
-    "ignore::PendingDeprecationWarning"
+    "ignore::PendingDeprecationWarning",
+    "ignore::UserWarning"
+]
+asyncio_mode = "auto"
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: integration tests",
+    "unit: unit tests"
 ]
 
 [tool.coverage.run]
@@ -46,6 +56,7 @@ omit = [
     "*/migrations/*",
     "*/__pycache__/*"
 ]
+branch = true
 
 [tool.coverage.report]
 exclude_lines = [
